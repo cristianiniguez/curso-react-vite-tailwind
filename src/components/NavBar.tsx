@@ -23,7 +23,7 @@ const NavBar = () => {
   const { count } = useContext(ShoppingCartContext);
 
   return (
-    <nav className='flex justify-between items-center sticky z-10 w-full px-8 py-5 text-sm font-light'>
+    <nav className='h-20 flex justify-between items-center sticky z-10 top-0 w-full px-8 py-5 text-sm font-light bg-white'>
       <ul className='flex items-center gap-3'>
         <li className='font-semibold text-lg'>
           <NavItem to='/'>Shopi</NavItem>
