@@ -11,29 +11,29 @@ import {
 type ShoppingCartContextValue = {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
-  productDetailsId: number | null;
-  openProductDetails: (productId: number) => void;
+  productDetails: Product | null;
+  openProductDetails: (product: Product) => void;
   closeProductDetails: () => void;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
   count: 0,
   setCount: () => null,
-  productDetailsId: null,
+  productDetails: null,
   openProductDetails: () => null,
   closeProductDetails: () => null,
 });
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   const [count, setCount] = useState(0);
-  const [productDetailsId, setProductDetailsId] = useState<number | null>(null);
 
-  const openProductDetails = (productId: number) => setProductDetailsId(productId);
-  const closeProductDetails = () => setProductDetailsId(null);
+  const [productDetails, setProductDetails] = useState<Product | null>(null);
+  const openProductDetails = (product: Product) => setProductDetails(product);
+  const closeProductDetails = () => setProductDetails(null);
 
   return (
     <ShoppingCartContext.Provider
-      value={{ count, setCount, productDetailsId, openProductDetails, closeProductDetails }}
+      value={{ count, setCount, productDetails, openProductDetails, closeProductDetails }}
     >
       {children}
     </ShoppingCartContext.Provider>

@@ -8,10 +8,7 @@ const Card: FC<CardProps> = ({ product }) => {
   const { count, openProductDetails, setCount } = useShoppingCart();
 
   return (
-    <div
-      className='bg-white rounded-lg cursor-pointer'
-      onClick={() => openProductDetails(product.id)}
-    >
+    <div className='bg-white rounded-lg cursor-pointer' onClick={() => openProductDetails(product)}>
       <figure className='relative mb-2 aspect-square rounded-lg overflow-hidden'>
         <img className='w-full h-full object-cover' src={product.images[0]} alt={product.title} />
         <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xd m-2 px-3 py-0.5'>
