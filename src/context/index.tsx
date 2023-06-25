@@ -1,7 +1,21 @@
-import { FC, PropsWithChildren, createContext } from 'react';
+import { Dispatch, FC, PropsWithChildren, SetStateAction, createContext, useState } from 'react';
 
-const ShoppingCartContext = createContext({});
+type ShoppingCartContextValue = {
+  count: number;
+  setCount: Dispatch<SetStateAction<number>>;
+};
+
+export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
+  count: 0,
+  setCount: () => null,
+});
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
-  return <ShoppingCartContext.Provider value={{}}>{children}</ShoppingCartContext.Provider>;
+  const [count, setCount] = useState(0);
+
+  return (
+    <ShoppingCartContext.Provider value={{ count, setCount }}>
+      {children}
+    </ShoppingCartContext.Provider>
+  );
 };

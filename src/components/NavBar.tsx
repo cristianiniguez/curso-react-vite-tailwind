@@ -1,6 +1,7 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
+import { ShoppingCartContext } from '../context';
 
 type NavItemProps = {
   className?: string;
@@ -19,6 +20,8 @@ const NavItem: FC<PropsWithChildren<NavItemProps>> = ({ className, children, to 
 };
 
 const NavBar = () => {
+  const { count } = useContext(ShoppingCartContext);
+
   return (
     <nav className='flex justify-between items-center sticky z-10 w-full px-8 py-5 text-sm font-light'>
       <ul className='flex items-center gap-3'>
@@ -55,6 +58,7 @@ const NavBar = () => {
         <li>
           <NavItem to='sign-in'>Sign In</NavItem>
         </li>
+        <li>🛒 {count}</li>
       </ul>
     </nav>
   );
