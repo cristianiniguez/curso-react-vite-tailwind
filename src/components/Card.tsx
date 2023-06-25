@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react';
+import { HiPlus } from 'react-icons/hi';
 import { ShoppingCartContext } from '../context';
 
 type CardProps = { product: Product };
@@ -17,7 +18,7 @@ const Card: FC<CardProps> = ({ product }) => {
           className='absolute top-0 right-0 bg-white w-6 h-6 rounded-full grid place-items-center m-2'
           onClick={() => context.setCount(context.count + 1)}
         >
-          +
+          <HiPlus />
         </button>
       </figure>
       <p className='flex justify-between'>

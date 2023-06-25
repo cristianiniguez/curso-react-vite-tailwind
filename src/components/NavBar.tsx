@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { HiShoppingBag } from 'react-icons/hi';
 import clsx from 'clsx';
 import { ShoppingCartContext } from '../context';
 
@@ -58,7 +59,9 @@ const NavBar = () => {
         <li>
           <NavItem to='sign-in'>Sign In</NavItem>
         </li>
-        <li>🛒 {count}</li>
+        <li>
+          <HiShoppingBag className='inline-block' /> {count}
+        </li>
       </ul>
     </nav>
   );
