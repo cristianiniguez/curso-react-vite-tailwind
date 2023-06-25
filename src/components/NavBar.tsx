@@ -1,8 +1,8 @@
-import { FC, PropsWithChildren, useContext } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { NavLink } from 'react-router-dom';
 import { HiShoppingBag } from 'react-icons/hi';
 import clsx from 'clsx';
-import { ShoppingCartContext } from '../context';
+import { useShoppingCart } from '../context';
 
 type NavItemProps = {
   className?: string;
@@ -21,7 +21,7 @@ const NavItem: FC<PropsWithChildren<NavItemProps>> = ({ className, children, to 
 };
 
 const NavBar = () => {
-  const { count } = useContext(ShoppingCartContext);
+  const { count } = useShoppingCart();
 
   return (
     <nav className='h-20 flex justify-between items-center sticky z-10 top-0 w-full px-8 py-5 text-sm font-light bg-white'>

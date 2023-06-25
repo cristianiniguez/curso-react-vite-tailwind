@@ -1,14 +1,17 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { HiPlus } from 'react-icons/hi';
-import { ShoppingCartContext } from '../context';
+import { useShoppingCart } from '../context';
 
 type CardProps = { product: Product };
 
 const Card: FC<CardProps> = ({ product }) => {
-  const context = useContext(ShoppingCartContext);
+  const { count, openProductDetails, setCount } = useShoppingCart();
 
   return (
-    <div className='bg-white rounded-lg'>
+    <div
+      className='bg-white rounded-lg cursor-pointer'
+      onClick={() => openProductDetails(product.id)}
+    >
       <figure className='relative mb-2 aspect-square rounded-lg overflow-hidden'>
         <img className='w-full h-full object-cover' src={product.images[0]} alt={product.title} />
         <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xd m-2 px-3 py-0.5'>
@@ -16,7 +19,7 @@ const Card: FC<CardProps> = ({ product }) => {
         </span>
         <button
           className='absolute top-0 right-0 bg-white w-6 h-6 rounded-full grid place-items-center m-2'
-          onClick={() => context.setCount(context.count + 1)}
+          onClick={() => setCount(count + 1)}
         >
           <HiPlus />
         </button>
