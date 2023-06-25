@@ -20,7 +20,7 @@ const NavItem: FC<PropsWithChildren<NavItemProps>> = ({ className, children, to 
 
 const NavBar = () => {
   return (
-    <nav className='flex justify-between items-center fixed z-10 w-full px-8 py-5 text-sm font-light'>
+    <nav className='flex justify-between items-center sticky z-10 w-full px-8 py-5 text-sm font-light'>
       <ul className='flex items-center gap-3'>
         <li className='font-semibold text-lg'>
           <NavItem to='/'>Shopi</NavItem>
