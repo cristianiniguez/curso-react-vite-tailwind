@@ -14,6 +14,8 @@ type ShoppingCartContextValue = {
   productDetails: Product | null;
   openProductDetails: (product: Product) => void;
   closeProductDetails: () => void;
+  shoppingCartProducts: Product[];
+  setShoppingCartProducts: Dispatch<SetStateAction<Product[]>>;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
@@ -22,6 +24,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
   productDetails: null,
   openProductDetails: () => null,
   closeProductDetails: () => null,
+  shoppingCartProducts: [],
+  setShoppingCartProducts: () => null,
 });
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -31,9 +35,19 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   const openProductDetails = (product: Product) => setProductDetails(product);
   const closeProductDetails = () => setProductDetails(null);
 
+  const [shoppingCartProducts, setShoppingCartProducts] = useState<Product[]>([]);
+
   return (
     <ShoppingCartContext.Provider
-      value={{ count, setCount, productDetails, openProductDetails, closeProductDetails }}
+      value={{
+        count,
+        setCount,
+        productDetails,
+        openProductDetails,
+        closeProductDetails,
+        setShoppingCartProducts,
+        shoppingCartProducts,
+      }}
     >
       {children}
     </ShoppingCartContext.Provider>

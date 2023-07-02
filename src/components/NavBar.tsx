@@ -21,7 +21,7 @@ const NavItem: FC<PropsWithChildren<NavItemProps>> = ({ className, children, to 
 };
 
 const NavBar = () => {
-  const { count } = useShoppingCart();
+  const { shoppingCartProducts } = useShoppingCart();
 
   return (
     <nav className='h-20 flex justify-between items-center sticky z-10 top-0 w-full px-8 py-5 text-sm font-light bg-white'>
@@ -60,7 +60,7 @@ const NavBar = () => {
           <NavItem to='sign-in'>Sign In</NavItem>
         </li>
         <li>
-          <HiShoppingBag className='inline-block' /> {count}
+          <HiShoppingBag className='inline-block' /> {shoppingCartProducts.length}
         </li>
       </ul>
     </nav>

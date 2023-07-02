@@ -1,11 +1,16 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { HiPlus } from 'react-icons/hi';
 import { useShoppingCart } from '../context';
 
 type CardProps = { product: Product };
 
 const Card: FC<CardProps> = ({ product }) => {
-  const { count, openProductDetails, setCount } = useShoppingCart();
+  const { openProductDetails, setShoppingCartProducts } = useShoppingCart();
+
+  const addProductToCart: MouseEventHandler = e => {
+    e.stopPropagation();
+    setShoppingCartProducts(products => [...products, product]);
+  };
 
   return (
     <div className='bg-white rounded-lg cursor-pointer' onClick={() => openProductDetails(product)}>
@@ -16,7 +21,7 @@ const Card: FC<CardProps> = ({ product }) => {
         </span>
         <button
           className='absolute top-0 right-0 bg-white w-6 h-6 rounded-full grid place-items-center m-2'
-          onClick={() => setCount(count + 1)}
+          onClick={addProductToCart}
         >
           <HiPlus />
         </button>
