@@ -6,6 +6,7 @@ import MyOrders from './pages/MyOrders';
 import MyOrder from './pages/MyOrder';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
+import CheckoutSideMenu from './components/CheckoutSideMenu';
 
 const Routes = () =>
   useRoutes([
@@ -22,6 +23,7 @@ function App() {
     <ShoppingCartProvider>
       <BrowserRouter>
         <Routes />
+        <CheckoutSideMenu />
       </BrowserRouter>
     </ShoppingCartProvider>
   );

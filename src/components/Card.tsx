@@ -5,11 +5,12 @@ import { useShoppingCart } from '../context';
 type CardProps = { product: Product };
 
 const Card: FC<CardProps> = ({ product }) => {
-  const { openProductDetails, setShoppingCartProducts } = useShoppingCart();
+  const { openCheckout, openProductDetails, setShoppingCartProducts } = useShoppingCart();
 
-  const addProductToCart: MouseEventHandler = e => {
-    e.stopPropagation();
+  const addProductToCart: MouseEventHandler = event => {
+    event.stopPropagation();
     setShoppingCartProducts(products => [...products, product]);
+    openCheckout();
   };
 
   return (
