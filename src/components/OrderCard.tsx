@@ -1,11 +1,18 @@
 import { FC } from 'react';
 import { HiX } from 'react-icons/hi';
+import { useShoppingCart } from '../context';
 
 type OrderCardProps = {
   product: Product;
 };
 
 const OrderCard: FC<OrderCardProps> = ({ product }) => {
+  const { setShoppingCartProducts } = useShoppingCart();
+
+  const handleDelete = () => {
+    setShoppingCartProducts(products => products.filter(p => p.id !== product.id));
+  };
+
   return (
     <div className='flex justify-between items-center mb-4'>
       <div className='flex items-center gap-2'>
@@ -20,7 +27,7 @@ const OrderCard: FC<OrderCardProps> = ({ product }) => {
       </div>
       <div className='flex items-center gap-2'>
         <p className='text-lg font-medium text-end'>${product.price}</p>
-        <button>
+        <button onClick={handleDelete}>
           <HiX className='w-6 h-6' />
         </button>
       </div>
