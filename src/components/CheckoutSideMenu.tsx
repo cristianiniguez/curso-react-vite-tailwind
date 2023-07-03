@@ -9,9 +9,11 @@ const CheckoutSideMenu = () => {
 
   return (
     <SideMenu title='My Order' onClose={closeCheckout}>
-      {shoppingCartProducts.map((product, i) => (
-        <OrderCard key={`order-${product.id}-${i}`} product={product} />
-      ))}
+      <div className='overflow-y-scroll'>
+        {shoppingCartProducts.map((product, i) => (
+          <OrderCard key={`order-${product.id}-${i}`} product={product} />
+        ))}
+      </div>
     </SideMenu>
   );
 };

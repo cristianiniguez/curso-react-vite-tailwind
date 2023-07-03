@@ -1,17 +1,21 @@
 import { FC, MouseEventHandler } from 'react';
-import { HiPlus } from 'react-icons/hi';
+import { HiCheck, HiPlus } from 'react-icons/hi';
 import { useShoppingCart } from '../context';
 
 type CardProps = { product: Product };
 
 const Card: FC<CardProps> = ({ product }) => {
-  const { openCheckout, openProductDetails, setShoppingCartProducts } = useShoppingCart();
+  const { openCheckout, openProductDetails, setShoppingCartProducts, shoppingCartProducts } =
+    useShoppingCart();
 
   const addProductToCart: MouseEventHandler = event => {
     event.stopPropagation();
     setShoppingCartProducts(products => [...products, product]);
     openCheckout();
   };
+
+  const isProductInCart = shoppingCartProducts.some(p => p.id === product.id);
+  const Icon = isProductInCart ? HiCheck : HiPlus;
 
   return (
     <div className='bg-white rounded-lg cursor-pointer' onClick={() => openProductDetails(product)}>
@@ -21,10 +25,13 @@ const Card: FC<CardProps> = ({ product }) => {
           {product.category.name}
         </span>
         <button
-          className='absolute top-0 right-0 bg-white w-6 h-6 rounded-full grid place-items-center m-2'
+          className={`absolute top-0 right-0 w-6 h-6 rounded-full grid place-items-center m-2 ${
+            isProductInCart ? 'bg-black text-white' : 'bg-white'
+          }`}
+          disabled={isProductInCart}
           onClick={addProductToCart}
         >
-          <HiPlus />
+          <Icon />
         </button>
       </figure>
       <p className='flex justify-between'>
