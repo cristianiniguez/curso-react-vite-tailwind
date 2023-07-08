@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useShoppingCart } from '../context';
 import SideMenu from './SideMenu';
 import OrderCard from './OrderCard';
@@ -12,19 +13,30 @@ const CheckoutSideMenu = () => {
     shoppingCartProducts,
   } = useShoppingCart();
 
+  const navigate = useNavigate();
+
   if (!isCheckoutOpen) return null;
+
+  const onProductDelete = (product: Product) => {
+    setShoppingCartProducts(products => products.filter(p => p.id !== product.id));
+  };
 
   const handleCheckout = () => {
     const orderToAdd = { date: '01-02-2023', products: shoppingCartProducts };
     setOrders(orders => [...orders, orderToAdd]);
     setShoppingCartProducts([]);
+    navigate('/my-orders/last');
   };
 
   return (
     <SideMenu title='My Order' onClose={closeCheckout}>
       <div className='overflow-y-scroll flex-1'>
         {shoppingCartProducts.map((product, i) => (
-          <OrderCard key={`order-${product.id}-${i}`} product={product} />
+          <OrderCard
+            key={`order-${product.id}-${i}`}
+            onDelete={onProductDelete}
+            product={product}
+          />
         ))}
       </div>
       <div>
