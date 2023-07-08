@@ -19,6 +19,8 @@ type ShoppingCartContextValue = {
   isCheckoutOpen: boolean;
   openCheckout: () => void;
   closeCheckout: () => void;
+  orders: Order[];
+  setOrders: Dispatch<SetStateAction<Order[]>>;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
@@ -32,6 +34,8 @@ export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
   isCheckoutOpen: false,
   openCheckout: () => null,
   closeCheckout: () => null,
+  orders: [],
+  setOrders: () => null,
 });
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -42,6 +46,7 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   const closeProductDetails = () => setProductDetails(null);
 
   const [shoppingCartProducts, setShoppingCartProducts] = useState<Product[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const openCheckout = () => setIsCheckoutOpen(true);
@@ -60,6 +65,8 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
         isCheckoutOpen,
         openCheckout,
         closeCheckout,
+        orders,
+        setOrders,
       }}
     >
       {children}
