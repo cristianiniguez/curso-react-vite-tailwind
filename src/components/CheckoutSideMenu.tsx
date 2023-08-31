@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useShoppingCart } from '../context';
 import SideMenu from './SideMenu';
-import OrderCard from './OrderCard';
+import OrderProductCard from './OrderProductCard';
 import { getTotalPrice } from '../utils';
 
 const CheckoutSideMenu = () => {
@@ -22,8 +22,15 @@ const CheckoutSideMenu = () => {
   };
 
   const handleCheckout = () => {
-    const orderToAdd = { date: '01-02-2023', products: shoppingCartProducts };
-    setOrders(orders => [...orders, orderToAdd]);
+    setOrders(orders => {
+      const maxOrderId = orders.length > 0 ? Math.max(...orders.map(order => order.id)) : 0;
+      const orderToAdd: Order = {
+        date: '01-02-2023',
+        id: maxOrderId + 1,
+        products: shoppingCartProducts,
+      };
+      return [...orders, orderToAdd];
+    });
     setShoppingCartProducts([]);
     navigate('/my-orders/last');
   };
@@ -32,7 +39,7 @@ const CheckoutSideMenu = () => {
     <SideMenu title='My Order' onClose={closeCheckout}>
       <div className='overflow-y-scroll flex-1'>
         {shoppingCartProducts.map((product, i) => (
-          <OrderCard
+          <OrderProductCard
             key={`order-${product.id}-${i}`}
             onDelete={onProductDelete}
             product={product}

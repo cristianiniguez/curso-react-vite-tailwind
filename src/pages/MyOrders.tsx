@@ -4,15 +4,13 @@ import OrderCard from '../components/OrderCard';
 
 const MyOrders = () => {
   const { orders } = useShoppingCart();
-  const [lastOrder] = orders.slice(-1);
-
-  if (!lastOrder) return null;
 
   return (
     <Layout>
       <div className='max-w-sm mx-auto'>
-        {lastOrder.products.map(product => (
-          <OrderCard key={product.id} product={product} />
+        <h1 className='text-xl text-center mb-4'>My Orders</h1>
+        {orders.map(order => (
+          <OrderCard key={`order-${order.id}`} order={order} />
         ))}
       </div>
     </Layout>

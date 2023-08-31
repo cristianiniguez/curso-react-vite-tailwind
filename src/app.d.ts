@@ -17,6 +17,7 @@ type Product = {
 };
 
 type Order = {
+  id: number;
   date: string;
   products: Product[];
 };
