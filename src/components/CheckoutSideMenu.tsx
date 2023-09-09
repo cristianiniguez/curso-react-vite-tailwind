@@ -32,6 +32,7 @@ const CheckoutSideMenu = () => {
       return [...orders, orderToAdd];
     });
     setShoppingCartProducts([]);
+    closeCheckout();
     navigate('/my-orders/last');
   };
 
