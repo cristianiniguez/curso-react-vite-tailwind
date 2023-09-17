@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useShoppingCart } from '../context';
 import Card from '../components/Card';
@@ -19,6 +19,8 @@ const Home = () => {
       ),
     [products, search, category],
   );
+
+  useEffect(() => setSearch(''), [category]);
 
   const renderProducts = () => {
     if (!filteredProducts.length) return <p className='text-center'>We don't have anything</p>;
