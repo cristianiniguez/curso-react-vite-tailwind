@@ -5,14 +5,12 @@ import {
   SetStateAction,
   createContext,
   useContext,
-  useMemo,
   useState,
 } from 'react';
 import useProducts from '../hooks/useProducts';
 
 type ShoppingCartContextValue = {
   products: Product[];
-  filteredProducts: Product[];
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
   productDetails: Product | null;
@@ -25,19 +23,12 @@ type ShoppingCartContextValue = {
   closeCheckout: () => void;
   orders: Order[];
   setOrders: Dispatch<SetStateAction<Order[]>>;
-  setSearch: Dispatch<SetStateAction<string>>;
 };
 
 export const ShoppingCartContext = createContext<ShoppingCartContextValue | null>(null);
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   const products = useProducts();
-
-  const [search, setSearch] = useState('');
-  const filteredProducts = useMemo(
-    () => products.filter(product => new RegExp(search, 'i').test(product.title)),
-    [products, search],
-  );
 
   const [count, setCount] = useState(0);
 
@@ -56,7 +47,6 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
     <ShoppingCartContext.Provider
       value={{
         products,
-        filteredProducts,
         count,
         setCount,
         productDetails,
@@ -69,7 +59,6 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
         closeCheckout,
         orders,
         setOrders,
-        setSearch,
       }}
     >
       {children}

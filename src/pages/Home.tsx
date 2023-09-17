@@ -1,10 +1,24 @@
+import { useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useShoppingCart } from '../context';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import ProductDetails from '../components/ProductDetails';
 
 const Home = () => {
-  const { setSearch, filteredProducts } = useShoppingCart();
+  const { category = '' } = useParams();
+  const { products } = useShoppingCart();
+
+  const [search, setSearch] = useState('');
+  const filteredProducts = useMemo(
+    () =>
+      products.filter(
+        product =>
+          new RegExp(search, 'i').test(product.title) &&
+          new RegExp(category, 'i').test(product.category.name),
+      ),
+    [products, search, category],
+  );
 
   const renderProducts = () => {
     if (!filteredProducts.length) return <p className='text-center'>We don't have anything</p>;
@@ -28,6 +42,7 @@ const Home = () => {
             type='text'
             placeholder='Search a product'
             onChange={e => setSearch(e.target.value)}
+            value={search}
           />
         </div>
         {renderProducts()}

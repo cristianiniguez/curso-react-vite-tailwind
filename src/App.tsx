@@ -1,4 +1,4 @@
-import { BrowserRouter, useRoutes } from 'react-router-dom';
+import { BrowserRouter, Navigate, useRoutes } from 'react-router-dom';
 import { ShoppingCartProvider } from './context';
 import Home from './pages/Home';
 import MyAccount from './pages/MyAccount';
@@ -10,7 +10,8 @@ import CheckoutSideMenu from './components/CheckoutSideMenu';
 
 const Routes = () =>
   useRoutes([
-    { path: '/', element: <Home /> },
+    { path: '/', element: <Navigate to='/home' /> },
+    { path: '/home/:category?', element: <Home /> },
     { path: '/my-account', element: <MyAccount /> },
     { path: '/my-orders', element: <MyOrders /> },
     { path: '/my-orders/:orderId', element: <MyOrder /> },

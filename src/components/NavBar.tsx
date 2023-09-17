@@ -30,22 +30,22 @@ const NavBar = () => {
           <NavItem to='/'>Shopi</NavItem>
         </li>
         <li>
-          <NavItem to='/'>All</NavItem>
+          <NavItem to='/home'>All</NavItem>
         </li>
         <li>
-          <NavItem to='/clothes'>Clothes</NavItem>
+          <NavItem to='/home/clothes'>Clothes</NavItem>
         </li>
         <li>
-          <NavItem to='/electronics'>Electronics</NavItem>
+          <NavItem to='/home/electronics'>Electronics</NavItem>
         </li>
         <li>
-          <NavItem to='/furnitures'>Furnitures</NavItem>
+          <NavItem to='/home/furnitures'>Furnitures</NavItem>
         </li>
         <li>
-          <NavItem to='/toys'>Toys</NavItem>
+          <NavItem to='/home/toys'>Toys</NavItem>
         </li>
         <li>
-          <NavItem to='/others'>Others</NavItem>
+          <NavItem to='/home/others'>Others</NavItem>
         </li>
       </ul>
       <ul className='flex items-center gap-3'>
