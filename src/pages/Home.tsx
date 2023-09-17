@@ -4,7 +4,19 @@ import Layout from '../components/Layout';
 import ProductDetails from '../components/ProductDetails';
 
 const Home = () => {
-  const { setSearch, products } = useShoppingCart();
+  const { setSearch, filteredProducts } = useShoppingCart();
+
+  const renderProducts = () => {
+    if (!filteredProducts.length) return <p className='text-center'>We don't have anything</p>;
+
+    return (
+      <div className='grid gap-4 grid-cols-4'>
+        {filteredProducts.map(product => (
+          <Card key={product.id} product={product} />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Layout>
@@ -18,12 +30,8 @@ const Home = () => {
             onChange={e => setSearch(e.target.value)}
           />
         </div>
-        <div className='grid gap-4 grid-cols-4'>
-          {products.map(product => (
-            <Card key={product.id} product={product} />
-          ))}
-          <ProductDetails />
-        </div>
+        {renderProducts()}
+        <ProductDetails />
       </div>
     </Layout>
   );
