@@ -1,24 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useShoppingCart } from '../context';
 import Card from '../components/Card';
 import Layout from '../components/Layout';
 import ProductDetails from '../components/ProductDetails';
 
 const Home = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    fetch('https://api.escuelajs.co/api/v1/products')
-      .then(res => res.json())
-      .then(products => setProducts(products));
-  }, []);
+  const { setSearch, products } = useShoppingCart();
 
   return (
     <Layout>
-      <div className='grid gap-4 grid-cols-4 max-w-screen-lg mx-auto'>
-        {products.map(product => (
-          <Card key={product.id} product={product} />
-        ))}
-        <ProductDetails />
+      <div className='max-w-screen-lg mx-auto'>
+        <h1 className='text-xl text-center mb-4'>Home</h1>
+        <div className='text-center'>
+          <input
+            className='rounded-lg border border-black w-80 p-4 mb-4'
+            type='text'
+            placeholder='Search a product'
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+        <div className='grid gap-4 grid-cols-4'>
+          {products.map(product => (
+            <Card key={product.id} product={product} />
+          ))}
+          <ProductDetails />
+        </div>
       </div>
     </Layout>
   );

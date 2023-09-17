@@ -7,8 +7,10 @@ import {
   useContext,
   useState,
 } from 'react';
+import useProducts from '../hooks/useProducts';
 
 type ShoppingCartContextValue = {
+  products: Product[];
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
   productDetails: Product | null;
@@ -21,24 +23,16 @@ type ShoppingCartContextValue = {
   closeCheckout: () => void;
   orders: Order[];
   setOrders: Dispatch<SetStateAction<Order[]>>;
+  setSearch: Dispatch<SetStateAction<string>>;
 };
 
-export const ShoppingCartContext = createContext<ShoppingCartContextValue>({
-  count: 0,
-  setCount: () => null,
-  productDetails: null,
-  openProductDetails: () => null,
-  closeProductDetails: () => null,
-  shoppingCartProducts: [],
-  setShoppingCartProducts: () => null,
-  isCheckoutOpen: false,
-  openCheckout: () => null,
-  closeCheckout: () => null,
-  orders: [],
-  setOrders: () => null,
-});
+export const ShoppingCartContext = createContext<ShoppingCartContextValue | null>(null);
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
+  const products = useProducts();
+
+  const [search, setSearch] = useState('');
+
   const [count, setCount] = useState(0);
 
   const [productDetails, setProductDetails] = useState<Product | null>(null);
@@ -55,6 +49,7 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ShoppingCartContext.Provider
       value={{
+        products,
         count,
         setCount,
         productDetails,
@@ -67,6 +62,7 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
         closeCheckout,
         orders,
         setOrders,
+        setSearch,
       }}
     >
       {children}
@@ -74,4 +70,10 @@ export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export const useShoppingCart = () => useContext(ShoppingCartContext);
+export const useShoppingCart = () => {
+  const shoppingCart = useContext(ShoppingCartContext);
+
+  if (!shoppingCart) throw 'useShoppingCart has to be used under ShoppingCartProvider';
+
+  return shoppingCart;
+};
